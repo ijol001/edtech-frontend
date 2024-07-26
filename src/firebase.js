@@ -4,13 +4,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAnfjjIV_ZpGsCqsD7vZ6w5uDFDQraBmr0",
-  authDomain: "edtech-learnwell.firebaseapp.com",
-  projectId: "edtech-learnwell",
-  storageBucket: "edtech-learnwell.appspot.com",
-  messagingSenderId: "323952202722",
-  appId: "1:323952202722:web:35f706535240ed53169fbb",
-  measurementId: "G-KQSPJ6SM29"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
+  measurementId: "YOUR-MEASUREMENT-ID"
 };
 
 const app = initializeApp(firebaseConfig);
