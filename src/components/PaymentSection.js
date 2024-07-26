@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import PayPalComponent from './PayPalComponent'; // Ensure this component receives the amount prop
+import React, { useState, useEffect, useMemo } from 'react';
+import PayPalComponent from './PayPalComponent';
 import CouponPopup from './CouponCodePop';
 import { getFirestore, collection, doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -13,25 +13,24 @@ const PaymentSection = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [discount, setDiscount] = useState(0);
-  const [selectedFeature, setSelectedFeature] = useState(null);
+  const [selectedFeature, setSelectedFeature] = useState('');
   const [showCouponModel, setShowCouponModel] = useState(false);
   const [generatedCoupon, setGeneratedCoupon] = useState('');
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1000);
   const navigate = useNavigate();
 
-  const featurePrices = {
+  const featurePrices = useMemo(() => ({
     'Data Structure': 1000,
-    'Web Development': 1000,
-    'Machine Learning': 1000,
-  };
+    'Web Development': 2000,
+    'Machine Learning': 2500,
+  }), []);
 
   useEffect(() => {
     if (selectedFeature) {
       const calculatedAmount = (featurePrices[selectedFeature] * (1 - discount / 100)).toFixed(2);
       setAmount(calculatedAmount);
     }
-  }, [selectedFeature, discount]);
-
+  }, [selectedFeature, discount, featurePrices]);
 
   const generateCouponCode = (length) => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -188,8 +187,6 @@ const PaymentSection = () => {
           amount={amount}
           onSuccess={handlePaypalSuccess}
           onError={handlePaypalError}
-          
-
         />
         {success && <p className="text-green-500 text-sm mt-4">Payment successful!</p>}
       </div>

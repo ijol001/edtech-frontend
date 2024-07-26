@@ -9,9 +9,9 @@ const LandingPage = () => {
   };
 
   const features = [
-    { name: 'Data Structure', currency_code: 'INR', originalPrice: 1000, discount: 10 },
-    { name: 'Web Development', currency_code: 'INR', originalPrice: 2000, discount: 10 },
-    { name: 'Machine Learning', currency_code: 'INR', originalPrice: 3000, discount: 10 },
+    { name: 'Data Structure',  originalPrice: 1000, discount: 10 },
+    { name: 'Web Development',  originalPrice: 2000, discount: 10 },
+    { name: 'Machine Learning',   originalPrice: 3000, discount: 10 },
   ];
   
     const handleFeatureClick = (feature) => {

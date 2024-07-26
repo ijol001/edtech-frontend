@@ -1,32 +1,29 @@
 import React from 'react';
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 const PayPalComponent = ({ amount, onSuccess, onError }) => {
   return (
-    <PayPalScriptProvider options={{ "client-id": "ENTER-PAYPAL-CLIENT-ID" }}>
+    <PayPalScriptProvider options={{ "client-id": "Your-paypal-id"}}>
       <PayPalButtons
-        createOrder={async (data, actions) => {
+        style={{ layout: "vertical" }}
+        createOrder={(data, actions) => {
           return actions.order.create({
-            purchase_units: [
-              {
-                amount: {
-                  value: amount
-                },
+            purchase_units: [{
+              amount: {
+                value: amount,
               },
-            ],
-          }).catch((err) => {
-            if (onError) onError(err);
+            }],
+          }).then(orderID => {
+            return orderID;
           });
         }}
-        onApprove={async (data, actions) => {
-          return actions.order.capture().then((details) => {
-            if (onSuccess) onSuccess(details);
-          }).catch((err) => {
-            if (onError) onError(err);
+        onApprove={(data, actions) => {
+          return actions.order.capture().then(details => {
+            onSuccess(details);
           });
         }}
         onError={(err) => {
-          if (onError) onError(err);
+          onError(err);
         }}
       />
     </PayPalScriptProvider>
